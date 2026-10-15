@@ -33,9 +33,8 @@ export type ShareNoteImageSource = Omit<DownloadNoteImageOptions, "background" |
 
 const FONT_OPTIONS: Array<{ id: NoteImageFontStyle; labelKey: string }> = [
   { id: "auto", labelKey: "editor.imageShare.fontStyles.auto" },
-  { id: "kai", labelKey: "editor.imageShare.fontStyles.kai" },
-  { id: "serif", labelKey: "editor.imageShare.fontStyles.serif" },
   { id: "sans", labelKey: "editor.imageShare.fontStyles.sans" },
+  { id: "serif", labelKey: "editor.imageShare.fontStyles.serif" },
   { id: "mono", labelKey: "editor.imageShare.fontStyles.mono" },
 ];
 
@@ -62,11 +61,11 @@ export const ShareNoteImageDialog = ({
 }) => {
   const { t } = useTranslation();
   const [format, setFormat] = useState<NoteImageFormat>("png");
-  const [theme, setTheme] = useState<NoteImageTheme>("paper");
+  const [theme, setTheme] = useState<NoteImageTheme>("mint");
   const [fontStyle, setFontStyle] = useState<NoteImageFontStyle>("auto");
   const [fontSize, setFontSize] = useState<NoteImageFontSize>("lg");
   const [cardWidth, setCardWidth] = useState<NoteImageCardWidth>("wide");
-  const [showTitle, setShowTitle] = useState(false);
+  const [showTitle, setShowTitle] = useState(true);
   const [showNotebook, setShowNotebook] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [showUpdatedAt, setShowUpdatedAt] = useState(true);
@@ -90,11 +89,11 @@ export const ShareNoteImageDialog = ({
   useEffect(() => {
     if (!open) return;
     setFormat("png");
-    setTheme("paper");
+    setTheme("mint");
     setFontStyle("auto");
     setFontSize("lg");
     setCardWidth("wide");
-    setShowTitle(false);
+    setShowTitle(true);
     setShowNotebook(false);
     setShowTags(false);
     setShowUpdatedAt(true);
@@ -297,13 +296,12 @@ export const ShareNoteImageDialog = ({
                 {t("editor.imageShare.fontStyle")}
               </legend>
               <div className="grid grid-cols-2 gap-1.5">
-                {FONT_OPTIONS.map((item, idx) => (
+                {FONT_OPTIONS.map((item) => (
                   <button
                     key={item.id}
                     aria-pressed={fontStyle === item.id}
                     className={cn(
                       "h-8 rounded-md border text-xs font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20",
-                      idx === 0 && "col-span-2",
                       fontStyle === item.id
                         ? "border-slate-900 bg-slate-100 text-slate-950 font-semibold"
                         : "border-slate-200 bg-card text-slate-600 hover:bg-slate-50",
